@@ -6,6 +6,7 @@
 # include <X11/X.h>
 # include <X11/keysym.h>
 # include "../libft/libft.h"
+# include <stdio.h>
 
 # define IMG_HEIGHT	32
 # define IMG_WIDTH	32
@@ -43,41 +44,39 @@ typedef struct s_position
 	int	y;
 }	t_positon;
 
-typedef struct s_image
+typedef struct s_pics
 {
-	void	*xpm_ptr;
-	int		x;
-	int		y;
-}	t_image;
-
-typedef struct s_map
-{
-	char		**full;
-	int			rows;
-	int			columns;
-	int			coins;
-	int			exit;
-	int			players;
-	t_positon	player;
-}	t_map;
+	void	*(coll);
+	void	*(player);
+	void	*(player1);
+	void	*(player2);
+	void	*(player3);
+	void	*(exit);
+	void	*(exit1);
+	void	*(wall);
+	void	*(place);
+	void	*(enemy);
+}				t_pics;
 
 typedef struct s_game
 {
-	void		*mlx_ptr;
-	void		*win_ptr;
-	int			movements;
-	int			player_sprite;
-	int			fd;
-	t_map		map;
-	t_image		wall;
-	t_image		floor;
-	t_image		coins;
-	t_image		open_exit;
-	t_image		exit_closed;
-	t_image		front;
-	t_image		left;
-	t_image		right;
-	t_image		back;
-}	t_game;
+	void	*mlx;
+	void	*win;
+	char	**map;
+	char	**mapc;
+	int		row;
+	int		col;
+	int		coins;
+	int		coins_lim;
+	int		step;
+	int		width;
+	int		height;
+	int		frame;
+	int		fd;
+	int		filelen;
+	t_pics	pics;
+}				t_game;
+
+int	is_mapfile_valid(t_game *game, char *filename);
 
 #endif
