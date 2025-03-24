@@ -1,35 +1,54 @@
-NAME = so_long
-NAME_BONUS = so_long_bonus
+# Compiler and flags
+CC          = gcc
+CFLAGS      = -Wall -Wextra -Werror
+MLX_FLAGS   = -lmlx -lXext -lX11 -lm
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror
-MLXFLAGS = -L ./mlx_linux/ -lmlx -Ilmlx -lXext -lX11
+# Project name
+NAME        = so_long
 
-RM = rm -rf
+# Directories
+SRC_DIR     = src
+OBJ_DIR     = obj
+LIBFT_DIR   = libft
+INC_DIR     = includes
 
-SRCS = src/ libft/libft.a
-#SRCS_BONUS = src_bonus/pipex_bonus.c src_bonus/utils_bonus.c libft/libft.a src_bonus/norm_bonus.c
+# Source files
+SRC         = so_long.c map_validation.c graphics.c movement.c utils.c
+OBJ         = $(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 
-$(NAME): libft/libft.a $(SRCS)
-	$(CC) $(CFLAGS) $(SRCS) -o $(NAME)
+# libft library
+LIBFT       = $(LIBFT_DIR)/libft.a
 
-$(NAME_BONUS): libft/libft.a $(SRCS_BONUS)
-	$(CC) $(CFLAGS) $(SRCS_BONUS) -o $(NAME_BONUS)
-
-libft/libft.a:
-	make -C libft
+# Colors
+GREEN       = \033[0;32m
+RED         = \033[0;31m
+NC          = \033[0m
 
 all: $(NAME)
 
-bonus: $(NAME_BONUS)
+$(NAME): $(OBJ) $(LIBFT)
+	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLX_FLAGS) -o $(NAME)
+	@echo "$(GREEN)✅ $(NAME) compiled successfully!$(NC)"
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+	@$(CC) $(CFLAGS) -I$(INC_DIR) -I$(LIBFT_DIR) -c $< -o $@
+
+$(LIBFT):
+	@make -C $(LIBFT_DIR)
+
+$(OBJ_DIR):
+	@mkdir -p $(OBJ_DIR)
 
 clean:
-	$(RM) $(NAME) $(NAME_BONUS)
-	make clean -C libft
+	@rm -rf $(OBJ_DIR)
+	@make -C $(LIBFT_DIR) clean
+	@echo "$(RED)🧹 Object files removed$(NC)"
 
 fclean: clean
-	make fclean -C libft
+	@rm -f $(NAME)
+	@make -C $(LIBFT_DIR) fclean
+	@echo "$(RED)🧹 $(NAME) and libraries removed$(NC)"
 
 re: fclean all
 
-.PHONY:	all clean fclean re
+.PHONY: all clean fclean re
