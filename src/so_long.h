@@ -83,5 +83,6 @@ int			check_player_row(char **map, int rows);
 int			check_player_col(char **map, int rows);
 void		step_done(t_game *game);
 void		free_var(t_game *game);
+void	free_mlx_images(t_game *game);
 
 #endif

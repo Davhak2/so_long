@@ -1,5 +1,26 @@
 #include "so_long.h"
 
+void	free_mlx_images(t_game *game)
+{
+	// int	i;
+
+	// i = 0;
+	mlx_destroy_image(game->mlx, game->pics.wall);
+	mlx_destroy_image(game->mlx, game->pics.place);
+	mlx_destroy_image(game->mlx, game->pics.exit);
+	mlx_destroy_image(game->mlx, game->pics.player);
+	mlx_destroy_image(game->mlx, game->pics.coin);
+	mlx_destroy_image(game->mlx, game->pics.enemy);
+	// mlx_destroy_image(game->mlx, game->img.exit);
+	// mlx_destroy_image(game->mlx, game->img.enemy);
+	// while (i < 10)
+	// {
+	// 	mlx_destroy_image(game->mlx, game->img->coin[i]);
+	// 	++i;
+	// }
+}
+
+
 void	do_stat(t_game *game, void *image, int y, int x)
 {
 	if (!game || !game->mlx || !game->win || !image)
