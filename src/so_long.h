@@ -23,9 +23,6 @@
 # define KEY_S 115
 # define KEY_D 100
 
-# define IMG_WIDTH 64
-# define IMG_HEIGHT 64
-
 typedef struct s_img
 {
 	void	*wall;
@@ -34,6 +31,7 @@ typedef struct s_img
 	void	*exit;
 	void	*coin;
 	void	*enemy;
+	void	*player2;
 }			t_img;
 
 typedef struct s_game
@@ -46,13 +44,15 @@ typedef struct s_game
 	int		coins;
 	int		total_coins;
 	int		step;
-	int		frame;
 	int		fd;
 	int		players;
 	int		exits;
 	int		filelen;
 	int		x_pos;
 	int		y_pos;
+    int		anim_frame;
+    int 	anim_counter;
+    void 	*player_frames[2];
 	t_img	pics;
 }			t_game;
 
@@ -70,6 +70,8 @@ void		check_other_objects(t_game *game, char *filename);
 void		do_stat(t_game *game, void *image, int y, int x);
 void		get_xpm(t_game *game);
 void		ft_make_map(t_game *game);
+void		render_step_counter(t_game *game);
+
 
 // Movement
 int			key_hook(int keycode, t_game *game);
@@ -83,6 +85,10 @@ int			check_player_row(char **map, int rows);
 int			check_player_col(char **map, int rows);
 void		step_done(t_game *game);
 void		free_var(t_game *game);
-void	free_mlx_images(t_game *game);
+void		free_mlx_images(t_game *game);
+void 		update_animation(t_game *game);
+int 		render_loop(t_game *game);
+
+
 
 #endif

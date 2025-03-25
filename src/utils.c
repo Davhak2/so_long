@@ -43,7 +43,7 @@ int	check_player_col(char **map, int rows)
 void	step_done(t_game *game)
 {
 	game->step++;
-	printf("Steps: %d\n", game->step);
+	render_step_counter(game);
 }
 
 void	free_var(t_game *game)

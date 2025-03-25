@@ -17,6 +17,8 @@ int	key_hook(int keycode, t_game *game)
 		return (hook_right(game, prow, pcol));
 	if (keycode == KEY_ESC)
 		free_var(game);
+
+	render_step_counter(game);
 	return (0);
 }
 
@@ -37,6 +39,7 @@ int	hook_up(t_game *game, int prow, int pcol)
 		game->map[prow - 1][pcol] = PLAYER;
 		game->map[prow][pcol] = FLOOR;
 		ft_make_map(game);
+		render_step_counter(game);
 		return (0);
 	}
 	else
@@ -60,6 +63,7 @@ int	hook_down(t_game *game, int prow, int pcol)
 		game->map[prow + 1][pcol] = PLAYER;
 		game->map[prow][pcol] = FLOOR;
 		ft_make_map(game);
+		render_step_counter(game);
 		return (0);
 	}
 	else
@@ -83,6 +87,7 @@ int	hook_left(t_game *game, int prow, int pcol)
 		game->map[prow][pcol - 1] = PLAYER;
 		game->map[prow][pcol] = FLOOR;
 		ft_make_map(game);
+		render_step_counter(game);
 		return (0);
 	}
 	else
@@ -106,6 +111,7 @@ int	hook_right(t_game *game, int prow, int pcol)
 		game->map[prow][pcol + 1] = PLAYER;
 		game->map[prow][pcol] = FLOOR;
 		ft_make_map(game);
+		render_step_counter(game);
 		return (0);
 	}
 	else

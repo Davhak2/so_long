@@ -64,10 +64,8 @@ void	free_map_copy(char **arr, int j)
 	free(arr);
 }
 
-int	mouse_hook(int keycode, int x, int y, t_game *game)
+int	mouse_hook(int keycode, t_game *game)
 {
-	(void)x;
-	(void)y;
 	if (keycode == KEY_ESC)
 	{
 		mlx_destroy_window(game->mlx, game->win);
@@ -80,7 +78,6 @@ int	close_window(t_game *game)
 {
 	mlx_destroy_window(game->mlx, game->win);
 	exit(0);
-	return (0);
 }
 
 int	main(int argc, char **argv)
@@ -142,20 +139,18 @@ int	main(int argc, char **argv)
 	free_map_copy(map_copy, game->row);
 	game->coins = 0;
 	game->step = 0;
-	game->frame = 0;
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		ft_error("Failed to initialize MLX", game);
-	game->win = mlx_new_window(game->mlx, SIZE * game->col, SIZE * game->row,
-			"so_long");
+	game->win = mlx_new_window(game->mlx, SIZE * game->col, SIZE * game->row, "so_long");
 	if (!game->win)
 		ft_error("Failed to create window", game);
 	get_xpm(game);
 	ft_make_map(game);
 	mlx_hook(game->win, 17, 1L << 2, close_window, game);
-	mlx_hook(game->win, 2, 1L << 0, key_hook, game);
 	mlx_hook(game->win, 4, 1L << 2, mouse_hook, game);
 	mlx_key_hook(game->win, key_hook, game);
+	mlx_loop_hook(game->mlx, render_loop, game);
 	mlx_loop(game->mlx);
 	free_mlx_images(game);
 	exit(EXIT_SUCCESS);
