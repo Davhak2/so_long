@@ -22,7 +22,8 @@ int key_hook(int keycode, t_game *game)
 
 int hook_up(t_game *game, int prow, int pcol)
 {
-    step_done(game);
+	if (game->map[prow - 1][pcol] != WALL)
+    	step_done(game);
     if (game->map[prow - 1][pcol] == MAP_EXIT && game->coins == game->total_coins)
         free_var(game);
     if (game->map[prow - 1][pcol] != WALL && game->map[prow - 1][pcol] != MAP_EXIT)
@@ -32,9 +33,8 @@ int hook_up(t_game *game, int prow, int pcol)
         if (game->map[prow - 1][pcol] == ENEMY)
             free_var(game);
         game->map[prow - 1][pcol] = PLAYER;
-        do_stat(game, game->pics.player, (prow - 1), pcol);
         game->map[prow][pcol] = FLOOR;
-        do_stat(game, game->pics.place, prow, pcol);
+		ft_make_map(game);
         return (0);
     }
     else
@@ -43,7 +43,8 @@ int hook_up(t_game *game, int prow, int pcol)
 
 int hook_down(t_game *game, int prow, int pcol)
 {
-    step_done(game);
+	if (game->map[prow + 1][pcol] != WALL)
+    	step_done(game);
     if (game->map[prow + 1][pcol] == MAP_EXIT && game->coins == game->total_coins)
         free_var(game);
     if (game->map[prow + 1][pcol] != WALL && game->map[prow + 1][pcol] != MAP_EXIT)
@@ -53,9 +54,8 @@ int hook_down(t_game *game, int prow, int pcol)
         if (game->map[prow + 1][pcol] == ENEMY)
             free_var(game);
         game->map[prow + 1][pcol] = PLAYER;
-        do_stat(game, game->pics.player, (prow + 1), pcol);
         game->map[prow][pcol] = FLOOR;
-        do_stat(game, game->pics.place, prow, pcol);
+		ft_make_map(game);
         return (0);
     }
     else
@@ -64,7 +64,8 @@ int hook_down(t_game *game, int prow, int pcol)
 
 int hook_left(t_game *game, int prow, int pcol)
 {
-    step_done(game);
+	if (game->map[prow][pcol - 1] != WALL)
+    	step_done(game);
     if (game->map[prow][pcol - 1] == MAP_EXIT && game->coins == game->total_coins)
         free_var(game);
     if (game->map[prow][pcol - 1] != WALL && game->map[prow][pcol - 1] != MAP_EXIT)
@@ -74,9 +75,8 @@ int hook_left(t_game *game, int prow, int pcol)
         if (game->map[prow][pcol - 1] == ENEMY)
             free_var(game);
         game->map[prow][pcol - 1] = PLAYER;
-        do_stat(game, game->pics.player, prow, (pcol - 1));
         game->map[prow][pcol] = FLOOR;
-        do_stat(game, game->pics.place, prow, pcol);
+        ft_make_map(game);
         return (0);
     }
     else
@@ -85,7 +85,8 @@ int hook_left(t_game *game, int prow, int pcol)
 
 int hook_right(t_game *game, int prow, int pcol)
 {
-    step_done(game);
+	if (game->map[prow][pcol + 1] != WALL)
+    	step_done(game);
     if (game->map[prow][pcol + 1] == MAP_EXIT && game->coins == game->total_coins)
         free_var(game);
     if (game->map[prow][pcol + 1] != WALL && game->map[prow][pcol + 1] != MAP_EXIT)
@@ -95,9 +96,8 @@ int hook_right(t_game *game, int prow, int pcol)
         if (game->map[prow][pcol + 1] == ENEMY)
             free_var(game);
         game->map[prow][pcol + 1] = PLAYER;
-        do_stat(game, game->pics.player, prow, (pcol + 1));
         game->map[prow][pcol] = FLOOR;
-        do_stat(game, game->pics.place, prow, pcol);
+		ft_make_map(game);
         return (0);
     }
     else

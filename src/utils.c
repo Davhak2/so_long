@@ -59,4 +59,3 @@ void	free_var(t_game *game)
 	free(game);
 	exit(0);
 }
-
