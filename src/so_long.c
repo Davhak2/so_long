@@ -16,6 +16,8 @@ int	main(int argc, char **argv)
 		ft_error("Invalid map file", game);
 	get_map_dimensions(game, argv[1]);
 	allocate_map(game, argv[1]);
+	check_other_objects(game, argv[1]);
+	check_walls(game, argv[1]);
 	game->total_coins = 0;
 	for (int y = 0; y < game->row; y++)
 		for (int x = 0; x < game->col; x++)

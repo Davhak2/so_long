@@ -57,6 +57,8 @@ void	ft_error(char *s, t_game *game);
 void	get_map_dimensions(t_game *game, char *filename);
 int		is_mapfile_valid(t_game *game, char *filename);
 void	allocate_map(t_game *game, char *filename);
+void	check_walls(t_game *game, char *filename);
+void	check_other_objects(t_game *game, char *filename);
 
 // Graphics
 void	do_stat(t_game *game, void *image, int y, int x);
