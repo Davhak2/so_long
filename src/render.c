@@ -45,13 +45,19 @@ void	get_xpm(t_game *game)
 
 	width = SIZE;
 	height = SIZE;
-	game->pics.wall = mlx_xpm_file_to_image(game->mlx, "img/wall.xpm", &width, &height);
-	game->pics.place = mlx_xpm_file_to_image(game->mlx, "img/place.xpm", &width, &height);
-	game->pics.player = mlx_xpm_file_to_image(game->mlx, "img/player.xpm", &width, &height);
-	game->pics.exit = mlx_xpm_file_to_image(game->mlx, "img/exit.xpm", &width, &height);
-	game->pics.coin = mlx_xpm_file_to_image(game->mlx, "img/coin.xpm", &width, &height);
-	game->pics.enemy = mlx_xpm_file_to_image(game->mlx, "img/enemy.xpm", &width, &height);
-	if (!game->pics.wall || !game->pics.place || !game->pics.player ||
-		!game->pics.exit || !game->pics.coin || !game->pics.enemy)
+	game->pics.wall = mlx_xpm_file_to_image(game->mlx, "img/wall.xpm", &width,
+			&height);
+	game->pics.place = mlx_xpm_file_to_image(game->mlx, "img/place.xpm", &width,
+			&height);
+	game->pics.player = mlx_xpm_file_to_image(game->mlx, "img/player.xpm",
+			&width, &height);
+	game->pics.exit = mlx_xpm_file_to_image(game->mlx, "img/exit.xpm", &width,
+			&height);
+	game->pics.coin = mlx_xpm_file_to_image(game->mlx, "img/coin.xpm", &width,
+			&height);
+	game->pics.enemy = mlx_xpm_file_to_image(game->mlx, "img/enemy.xpm", &width,
+			&height);
+	if (!game->pics.wall || !game->pics.place || !game->pics.player
+		|| !game->pics.exit || !game->pics.coin || !game->pics.enemy)
 		ft_error("Failed to load images", game);
 }
