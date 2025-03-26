@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_validation.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: davihako <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/26 22:35:29 by davihako          #+#    #+#             */
+/*   Updated: 2025/03/26 22:35:30 by davihako         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 void	ft_error(char *s, t_game *game)
@@ -17,140 +29,6 @@ void	ft_error(char *s, t_game *game)
 	}
 	exit(EXIT_FAILURE);
 }
-
-void	get_map_dimensions(t_game *game, char *filename)
-{
-	int		fd;
-	int		check;
-	char	*line;
-
-	fd = open(filename, O_RDONLY);
-	if (fd == -1)
-		ft_error("Failed to open file.", game);
-	game->row = 0;
-	game->col = 0;
-	check = 0;
-	while (1)
-	{
-		line = get_next_line(fd);
-		if (!line)
-			break ;
-		game->col = ft_strlen(line) - (line[ft_strlen(line) - 1] == '\n');
-		if (!check)
-			check = game->col;
-		game->row++;
-		free(line);
-		if (game->col != check)
-			ft_error("Map must be rectangular.", game);
-	}
-	close(fd);
-	if (game->row <= 0 || game->col <= 0)
-		ft_error("Invalid map dimensions.", game);
-}
-
-int	game_imgs(char *str)
-{
-	int	i;
-	int	len;
-
-	if (!str)
-		return (1);
-	len = ft_strlen(str) - 1;
-	i = -1;
-	while (++i < len)
-	{
-		if (str[i] != WALL && str[i] != COINS && str[i] != ENEMY
-			&& str[i] != PLAYER && str[i] != MAP_EXIT && str[i] != FLOOR)
-			return (1);
-	}
-	return (0);
-}
-
-void	check_other_objects(t_game *game, char *filename)
-{
-	char	*tmp;
-	int		fd;
-
-	fd = open(filename, O_RDONLY);
-	if (fd < 0)
-		ft_error("Failed to open file.", game);
-	for (int i = 0; i < game->row; i++)
-	{
-		tmp = get_next_line(fd);
-		if (!tmp || game_imgs(tmp))
-		{
-			if (tmp)
-				free(tmp);
-			close(fd);
-			ft_error("File validation error.", game);
-		}
-		free(tmp);
-	}
-	close(fd);
-}
-
-void	check_walls(t_game *game, char *filename)
-{
-	char	*tmp;
-	int		fd;
-
-	fd = open(filename, O_RDONLY);
-	for (int i = 0; i < game->row; i++)
-	{
-		tmp = get_next_line(fd);
-		if (i == 0 || i == game->row - 1)
-		{
-			for (int j = 0; j < game->col; j++)
-			{
-				if (tmp[j] != WALL)
-				{
-					free(tmp);
-					close(fd);
-					ft_error("File validation error.", game);
-				}
-			}
-		}
-		else
-		{
-			if (tmp[0] != WALL || tmp[game->col - 1] != WALL)
-			{
-				free(tmp);
-				close(fd);
-				ft_error("File validation error.", game);
-			}
-		}
-		free(tmp);
-	}
-	close(fd);
-}
-
-void	allocate_map(t_game *game, char *filename)
-{
-	int		fd;
-	char	*line;
-	int		i;
-
-	fd = open(filename, O_RDONLY);
-	if (fd == -1)
-		ft_error("Failed to open file.", game);
-	game->map = (char **)malloc(sizeof(char *) * game->row);
-	if (!game->map)
-		ft_error("Memory allocation failed!", game);
-	i = 0;
-	while (i < game->row)
-	{
-		line = get_next_line(fd);
-		if (!line)
-			ft_error("Failed to read map line.", game);
-		game->map[i] = ft_strtrim(line, "\n");
-		free(line);
-		if (!game->map[i])
-			ft_error("Memory allocation failed!", game);
-		i++;
-	}
-	close(fd);
-}
-
 int	is_mapfile_valid(t_game *game, char *filename)
 {
 	char	*tmp;
@@ -178,3 +56,115 @@ int	is_mapfile_valid(t_game *game, char *filename)
 	close(game->fd);
 	return (1);
 }
+
+static void	read_map_lines(t_game *g, int fd, int *dims)
+{
+	char	*line;
+	int		len;
+
+	line = get_next_line(fd);
+	while (line)
+	{
+		len = ft_strlen(line) - (line[ft_strlen(line) - 1] == '\n');
+		if (dims[0] == -1)
+			dims[0] = len;
+		else if (len != dims[0])
+		{
+			free(line);
+			ft_error("Map must be rectangular", g);
+		}
+		dims[1]++;
+		free(line);
+		line = get_next_line(fd);
+	}
+}
+
+void	get_map_dimensions(t_game *game, char *filename)
+{
+	int		fd;
+	int		dims[2];
+
+	dims[0] = -1;
+	dims[1] = 0;
+	fd = open(filename, O_RDONLY);
+	if (fd == -1)
+		ft_error("Failed to open file", game);
+	read_map_lines(game, fd, dims);
+	close(fd);
+	if (dims[1] <= 0 || dims[0] <= 0)
+		ft_error("Invalid map dimensions", game);
+	game->row = dims[1];
+	game->col = dims[0];
+}
+
+static int	valid_char(char c)
+{
+	return (c == WALL || c == COINS || c == ENEMY
+		|| c == PLAYER || c == MAP_EXIT || c == FLOOR);
+}
+
+static void	validate_line(t_game *g, char *line, int row_idx)
+{
+	int	i;
+
+	i = 0;
+	while (i < g->col)
+	{
+		if (!valid_char(line[i]))
+			ft_error("Invalid map character", g);
+		if ((row_idx == 0 || row_idx == g->row - 1) && line[i] != WALL)
+			ft_error("Map not surrounded by walls", g);
+		if ((i == 0 || i == g->col - 1) && line[i] != WALL)
+			ft_error("Map not surrounded by walls", g);
+		i++;
+	}
+}
+
+void	validate_map(t_game *game, char *filename)
+{
+	int		fd;
+	char	*line;
+	int		i;
+
+	fd = open(filename, O_RDONLY);
+	if (fd == -1)
+		ft_error("Failed to open file", game);
+	i = 0;
+	line = get_next_line(fd);
+	while (line)
+	{
+		validate_line(game, ft_strtrim(line, "\n"), i);
+		free(line);
+		line = get_next_line(fd);
+		i++;
+	}
+	close(fd);
+}
+
+void	allocate_map(t_game *g, char *filename)
+{
+	int		fd;
+	char	*line;
+	int		i;
+
+	fd = open(filename, O_RDONLY);
+	if (fd == -1)
+		ft_error("Failed to open file", g);
+	g->map = (char **)malloc(sizeof(char *) * (g->row + 1));
+	if (!g->map)
+		ft_error("Memory allocation failed", g);
+	i = 0;
+	line = get_next_line(fd);
+	while (line)
+	{
+		g->map[i] = ft_strtrim(line, "\n");
+		free(line);
+		if (!g->map[i])
+			ft_error("Memory allocation failed", g);
+		line = get_next_line(fd);
+		i++;
+	}
+	g->map[i] = NULL;
+	close(fd);
+}
+
