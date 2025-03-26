@@ -6,7 +6,7 @@
 /*   By: luminous <luminous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 22:36:15 by davihako          #+#    #+#             */
-/*   Updated: 2025/03/27 00:44:25 by luminous         ###   ########.fr       */
+/*   Updated: 2025/03/27 00:54:35 by luminous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,12 @@ typedef struct s_game
 	t_img	pics;
 }			t_game;
 
-/* Error handling */
 void		ft_error(char *s, t_game *game);
 
 void		get_map_dimensions(t_game *game, char *filename);
 void		allocate_map(t_game *g, char *filename);
 void		validate_map(t_game *game, char *filename);
 int			is_mapfile_valid(t_game *game, char *filename);
-/* Game controls */
 int			key_hook(int keycode, t_game *game);
 int			hook_up(t_game *game, int prow, int pcol);
 int			hook_down(t_game *game, int prow, int pcol);

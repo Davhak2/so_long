@@ -6,7 +6,7 @@
 /*   By: luminous <luminous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:39:49 by davihako          #+#    #+#             */
-/*   Updated: 2025/03/19 03:38:10 by luminous         ###   ########.fr       */
+/*   Updated: 2025/03/27 01:25:01 by luminous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,6 @@ void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
+void				ft_free_matrix(char **arr);
 
 #endif

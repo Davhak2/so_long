@@ -1,14 +1,5 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: davihako <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/26 22:36:37 by davihako          #+#    #+#             */
-/*   Updated: 2025/03/26 22:36:39 by davihako         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include "so_long.h"
+
 
 #include "so_long.h"
 
@@ -63,11 +54,7 @@ void	free_var(t_game *game)
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
 	if (game->map)
-	{
-		for (int i = 0; i < game->row; i++)
-			free(game->map[i]);
-		free(game->map);
-	}
+		ft_free_matrix(game->map);
 	free(game);
 	exit(0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davihako <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: luminous <luminous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 22:35:29 by davihako          #+#    #+#             */
-/*   Updated: 2025/03/26 22:35:30 by davihako         ###   ########.fr       */
+/*   Updated: 2025/03/27 01:54:03 by luminous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ void	validate_map(t_game *game, char *filename)
 {
 	int		fd;
 	char	*line;
+	char	*tmp;
 	int		i;
 
 	fd = open(filename, O_RDONLY);
@@ -133,8 +134,10 @@ void	validate_map(t_game *game, char *filename)
 	line = get_next_line(fd);
 	while (line)
 	{
-		validate_line(game, ft_strtrim(line, "\n"), i);
+		tmp = ft_strtrim(line, "\n");
+		validate_line(game, tmp, i);
 		free(line);
+		free(tmp);
 		line = get_next_line(fd);
 		i++;
 	}
