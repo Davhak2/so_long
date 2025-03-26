@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davihako <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: luminous <luminous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 22:36:15 by davihako          #+#    #+#             */
-/*   Updated: 2025/03/26 22:36:31 by davihako         ###   ########.fr       */
+/*   Updated: 2025/03/27 00:44:25 by luminous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define SO_LONG_H
 
 # include "../libft/libft.h"
-# include "../mlx/mlx.h"
+# include <mlx.h>
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>

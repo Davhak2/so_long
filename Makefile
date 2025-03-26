@@ -7,7 +7,7 @@ SRC_DIR     = src
 OBJ_DIR     = obj
 LIBFT_DIR   = libft
 
-SRC         = so_long.c map_validation.c render.c movement.c utils.c
+SRC         = init.c main.c map_validation.c render.c render2.c movement.c utils.c object_validation.c
 OBJ         = $(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 LIBFT       = $(LIBFT_DIR)/libft.a
 
