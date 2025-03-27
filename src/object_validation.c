@@ -52,7 +52,8 @@ char	**duplicate_map(t_game *game)
 	map_copy = (char **)ft_calloc(game->row + 1, sizeof(char *));
 	if (!map_copy)
 		return (NULL);
-	for (i = 0; i < game->row; i++)
+	i = -1;
+	while (++i < game->row)
 	{
 		map_copy[i] = ft_strdup(game->map[i]);
 		if (!map_copy[i])
@@ -66,6 +67,7 @@ char	**duplicate_map(t_game *game)
 	map_copy[i] = NULL;
 	return (map_copy);
 }
+
 void	free_map_copy(char **arr, int j)
 {
 	int	i;

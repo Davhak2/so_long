@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: davihako <davihako@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/27 17:36:41 by davihako          #+#    #+#             */
+/*   Updated: 2025/03/27 17:44:46 by davihako         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 int	check_player_row(char **map, int rows)
@@ -40,15 +52,9 @@ int	check_player_col(char **map, int rows)
 	return (-1);
 }
 
-void	step_done(t_game *game)
-{
-	game->step++;
-	render_step_counter(game);
-}
-
 void	free_var(t_game *game)
 {
-    free_mlx_images(game);
+	free_mlx_images(game);
 	if (game->map)
 		ft_free_matrix(game->map);
 	free(game);

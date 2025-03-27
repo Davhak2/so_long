@@ -29,14 +29,14 @@ int	key_hook(int keycode, t_game *game)
 		return (hook_right(game, prow, pcol));
 	if (keycode == KEY_ESC)
 		free_var(game);
-
 	render_step_counter(game);
 	return (0);
 }
 
 int	hook_up(t_game *game, int prow, int pcol)
 {
-	if (game->map[prow - 1][pcol] != WALL && game->map[prow - 1][pcol] != MAP_EXIT)
+	if (game->map[prow - 1][pcol] != WALL && game->map[prow
+		- 1][pcol] != MAP_EXIT)
 		step_done(game);
 	if (game->map[prow - 1][pcol] == MAP_EXIT
 		&& game->coins == game->total_coins)
@@ -60,7 +60,8 @@ int	hook_up(t_game *game, int prow, int pcol)
 
 int	hook_down(t_game *game, int prow, int pcol)
 {
-	if (game->map[prow + 1][pcol] != WALL && game->map[prow + 1][pcol] != MAP_EXIT)
+	if (game->map[prow + 1][pcol] != WALL && game->map[prow
+		+ 1][pcol] != MAP_EXIT)
 		step_done(game);
 	if (game->map[prow + 1][pcol] == MAP_EXIT
 		&& game->coins == game->total_coins)
@@ -84,7 +85,8 @@ int	hook_down(t_game *game, int prow, int pcol)
 
 int	hook_left(t_game *game, int prow, int pcol)
 {
-	if (game->map[prow][pcol - 1] != WALL && game->map[prow][pcol-1] != MAP_EXIT)
+	if (game->map[prow][pcol - 1] != WALL && game->map[prow][pcol
+		- 1] != MAP_EXIT)
 		step_done(game);
 	if (game->map[prow][pcol - 1] == MAP_EXIT
 		&& game->coins == game->total_coins)
@@ -108,7 +110,8 @@ int	hook_left(t_game *game, int prow, int pcol)
 
 int	hook_right(t_game *game, int prow, int pcol)
 {
-	if (game->map[prow][pcol + 1] != WALL && game->map[prow][pcol + 1] != MAP_EXIT)
+	if (game->map[prow][pcol + 1] != WALL && game->map[prow][pcol
+		+ 1] != MAP_EXIT)
 		step_done(game);
 	if (game->map[prow][pcol + 1] == MAP_EXIT
 		&& game->coins == game->total_coins)

@@ -1,13 +1,14 @@
 CC          = gcc
-CFLAGS      = -Wall -Wextra -Werror -fsanitize=address
-MLX_FLAGS   = -Lmlx -lmlx -lXext -lX11 -lm
+CFLAGS      = -Wall -Wextra -Werror
+MLX_FLAGS   = -lmlx -lXext -lX11 -lm
 
 NAME        = so_long
 SRC_DIR     = src
 OBJ_DIR     = obj
 LIBFT_DIR   = libft
 
-SRC         = init.c main.c map_validation.c render.c render2.c movement.c utils.c object_validation.c
+SRC         = init.c main.c map_validation.c render.c render2.c \
+               movement.c utils.c object_validation.c extra_functions.c
 OBJ         = $(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 LIBFT       = $(LIBFT_DIR)/libft.a
 

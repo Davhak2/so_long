@@ -72,7 +72,7 @@ void	validate_arguments(int argc, char **argv, t_game *game)
 		ft_error("Usage: ./so_long map.ber", NULL);
 	game->filelen = ft_strlen(argv[1]);
 	if (game->filelen <= 4 || ft_strncmp(&argv[1][game->filelen - 4], ".ber",
-			4))
+		4))
 		ft_error("Map file must have .ber extension", game);
 }
 

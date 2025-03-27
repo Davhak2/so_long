@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luminous <luminous@student.42.fr>          +#+  +:+       +#+        */
+/*   By: davihako <davihako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 22:36:15 by davihako          #+#    #+#             */
-/*   Updated: 2025/03/27 00:54:35 by luminous         ###   ########.fr       */
+/*   Updated: 2025/03/27 17:43:35 by davihako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ int			hook_down(t_game *game, int prow, int pcol);
 int			hook_left(t_game *game, int prow, int pcol);
 int			hook_right(t_game *game, int prow, int pcol);
 
-/* Rendering */
 void		free_mlx_images(t_game *game);
 void		do_stat(t_game *game, void *image, int y, int x);
 int			render_loop(t_game *game);
@@ -86,13 +85,11 @@ void		update_animation(t_game *game);
 void		render_step_counter(t_game *game);
 void		get_xpm(t_game *game);
 void		get_xpm2(t_game *game);
-
-/* Player utils */
+int			valid_char(char c);
 int			check_player_row(char **map, int rows);
 int			check_player_col(char **map, int rows);
 void		step_done(t_game *game);
 void		free_var(t_game *game);
-
 int			flood_fill(t_game *game, char **map_copy, int x, int y);
 int			check_exit(t_game *game, char **map_copy, int x, int y);
 char		**duplicate_map(t_game *game);

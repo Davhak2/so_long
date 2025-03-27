@@ -3,61 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map_validation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luminous <luminous@student.42.fr>          +#+  +:+       +#+        */
+/*   By: davihako <davihako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 22:35:29 by davihako          #+#    #+#             */
-/*   Updated: 2025/03/27 01:54:03 by luminous         ###   ########.fr       */
+/*   Updated: 2025/03/27 17:41:45 by davihako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-void	ft_error(char *s, t_game *game)
-{
-	ft_putendl_fd(s, 2);
-	if (game)
-	{
-		if (game->fd > 0)
-			close(game->fd);
-		if (game->map)
-		{
-			for (int i = 0; i < game->row; i++)
-				free(game->map[i]);
-			free(game->map);
-		}
-		if (game->mlx)
-            free_mlx_images(game);
-		free(game);
-	}
-	exit(EXIT_FAILURE);
-}
-int	is_mapfile_valid(t_game *game, char *filename)
-{
-	char	*tmp;
-
-	game->fd = open(filename, O_RDONLY);
-	if (game->fd == -1)
-		ft_error("Failed to open file.", game);
-	tmp = get_next_line(game->fd);
-	if (!tmp)
-	{
-		close(game->fd);
-		ft_error("Empty or invalid file.", game);
-	}
-	while (tmp)
-	{
-		if (tmp[0] == '\n')
-		{
-			free(tmp);
-			close(game->fd);
-			return (0);
-		}
-		free(tmp);
-		tmp = get_next_line(game->fd);
-	}
-	close(game->fd);
-	return (1);
-}
 
 static void	read_map_lines(t_game *g, int fd, int *dims)
 {
@@ -97,12 +50,6 @@ void	get_map_dimensions(t_game *game, char *filename)
 		ft_error("Invalid map dimensions", game);
 	game->row = dims[1];
 	game->col = dims[0];
-}
-
-static int	valid_char(char c)
-{
-	return (c == WALL || c == COINS || c == ENEMY
-		|| c == PLAYER || c == MAP_EXIT || c == FLOOR);
 }
 
 static void	validate_line(t_game *g, char *line, int row_idx)
@@ -172,4 +119,3 @@ void	allocate_map(t_game *g, char *filename)
 	g->map[i] = NULL;
 	close(fd);
 }
-
