@@ -82,5 +82,6 @@ int	main(int argc, char **argv)
 
 	game = initialize_game(argc, argv);
 	run_game_loop(game);
+	free_mlx_images(game);
 	exit(EXIT_SUCCESS);
 }

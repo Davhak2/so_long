@@ -14,11 +14,8 @@
 # define SO_LONG_H
 
 # include "../libft/libft.h"
-# include <mlx.h>
+# include "../mlx/mlx.h"
 # include <fcntl.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
 
 # define SIZE 64
 
@@ -39,7 +36,6 @@ typedef struct s_img
 {
 	void	*wall;
 	void	*place;
-	void	*player;
 	void	*exit;
 	void	*coin;
 	void	*enemy;

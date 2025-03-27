@@ -1,8 +1,5 @@
 #include "so_long.h"
 
-
-#include "so_long.h"
-
 int	check_player_row(char **map, int rows)
 {
 	int	y;
@@ -51,8 +48,7 @@ void	step_done(t_game *game)
 
 void	free_var(t_game *game)
 {
-	if (game->win)
-		mlx_destroy_window(game->mlx, game->win);
+    free_mlx_images(game);
 	if (game->map)
 		ft_free_matrix(game->map);
 	free(game);
@@ -63,7 +59,7 @@ int	mouse_hook(int keycode, t_game *game)
 {
 	if (keycode == KEY_ESC)
 	{
-		mlx_destroy_window(game->mlx, game->win);
+		free_mlx_images(game);
 		exit(0);
 	}
 	return (0);
@@ -71,6 +67,6 @@ int	mouse_hook(int keycode, t_game *game)
 
 int	close_window(t_game *game)
 {
-	mlx_destroy_window(game->mlx, game->win);
+	free_mlx_images(game);
 	exit(0);
 }

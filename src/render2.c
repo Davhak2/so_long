@@ -12,35 +12,41 @@
 
 #include "so_long.h"
 
-void	free_mlx_images(t_game *game)
+void free_mlx_images(t_game *game)
 {
-	int	i;
+    int i;
 
-	if (!game || !game->mlx)
-		return ;
-	i = -1;
-	while (++i < 2)
+    if (!game || !game->mlx)
+        return;
+
+    for (i = 0; i < 2; i++) {
+        if (game->player_frames[i]) {
+            mlx_destroy_image(game->mlx, game->player_frames[i]);
+            game->player_frames[i] = NULL;
+        }
+    }
+    if (game->pics.wall)
+        mlx_destroy_image(game->mlx, game->pics.wall);
+    if (game->pics.place)
+        mlx_destroy_image(game->mlx, game->pics.place);
+    if (game->pics.exit)
+        mlx_destroy_image(game->mlx, game->pics.exit);
+    if (game->pics.coin)
+        mlx_destroy_image(game->mlx, game->pics.coin);
+    if (game->pics.enemy)
+        mlx_destroy_image(game->mlx, game->pics.enemy);
+    if (game->win)
 	{
-		if (game->player_frames[i])
-		{
-			mlx_destroy_image(game->mlx, game->player_frames[i]);
-			game->player_frames[i] = NULL;
-		}
-	}
-	if (game->pics.wall)
-		mlx_destroy_image(game->mlx, game->pics.wall);
-	if (game->pics.place)
-		mlx_destroy_image(game->mlx, game->pics.place);
-	if (game->pics.exit)
-		mlx_destroy_image(game->mlx, game->pics.exit);
-	if (game->pics.coin)
-		mlx_destroy_image(game->mlx, game->pics.coin);
-	if (game->pics.enemy)
-		mlx_destroy_image(game->mlx, game->pics.enemy);
-	if (game->win)
-		mlx_destroy_window(game->mlx, game->win);
+        mlx_destroy_window(game->mlx, game->win);
+        game->win = NULL;
+    }
+    if (game->mlx)
+	 {
+        mlx_destroy_display(game->mlx);
+        free(game->mlx);
+        game->mlx = NULL;
+    }
 }
-
 void	do_stat(t_game *game, void *image, int y, int x)
 {
 	if (!game || !game->mlx || !game->win || !image)

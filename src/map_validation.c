@@ -25,6 +25,8 @@ void	ft_error(char *s, t_game *game)
 				free(game->map[i]);
 			free(game->map);
 		}
+		if (game->mlx)
+            free_mlx_images(game);
 		free(game);
 	}
 	exit(EXIT_FAILURE);

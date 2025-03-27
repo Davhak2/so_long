@@ -1,6 +1,6 @@
 CC          = gcc
 CFLAGS      = -Wall -Wextra -Werror -fsanitize=address
-MLX_FLAGS   = -lmlx -lXext -lX11 -lm
+MLX_FLAGS   = -Lmlx -lmlx -lXext -lX11 -lm
 
 NAME        = so_long
 SRC_DIR     = src
