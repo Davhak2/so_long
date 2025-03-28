@@ -6,7 +6,7 @@
 /*   By: davihako <davihako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 17:36:41 by davihako          #+#    #+#             */
-/*   Updated: 2025/03/27 17:44:46 by davihako         ###   ########.fr       */
+/*   Updated: 2025/03/28 19:27:24 by davihako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,6 @@ int	mouse_hook(int keycode, t_game *game)
 
 int	close_window(t_game *game)
 {
-	free_mlx_images(game);
+	free_var(game);
 	exit(0);
 }

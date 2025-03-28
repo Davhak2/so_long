@@ -1,5 +1,5 @@
-CC          = gcc
-CFLAGS      = -Wall -Wextra -Werror -fsanitize=address
+CC          = cc
+CFLAGS      = -Wall -Wextra -Werror
 MLX_FLAGS   = -Lmlx -lmlx -lXext -lX11 -lm
 
 NAME        = so_long
